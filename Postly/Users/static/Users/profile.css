@@ -1,0 +1,78 @@
+/* Container */
+.profile-container {
+  max-width: 600px;
+  margin: 3rem auto;
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Title */
+.profile-title {
+  font-size: 1.75rem;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+/* Content layout */
+.profile-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+/* Profile image */
+.profile-image {
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.profile-image-placeholder {
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
+  background: #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+}
+
+.profile-placeholder-icon {
+  font-size: 2rem;
+}
+
+/* User details */
+.profile-details {
+  text-align: center;
+  line-height: 1.6;
+}
+
+.profile-label {
+  font-weight: 600;
+  color: #444;
+}
+
+/* Password change button */
+.profile-password-button {
+  margin-top: 1rem;
+  display: inline-block;
+  background: #0077cc;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.profile-password-button:hover {
+  background: #005fa3;
+}

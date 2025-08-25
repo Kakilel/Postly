@@ -1,0 +1,77 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f9f9fb;
+    color: #333;
+}
+
+/* Container */
+.comment-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 25px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Heading */
+.comment-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 22px;
+    color: #222;
+}
+
+/* Form */
+.comment-form input,
+.comment-form textarea,
+.comment-form select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.comment-form textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Buttons */
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.submit-btn {
+    padding: 10px 18px;
+    background: #0077ff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+.submit-btn:hover {
+    background: #005ecc;
+}
+
+.cancel-btn {
+    padding: 10px 18px;
+    background: #ccc;
+    color: #222;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+.cancel-btn:hover {
+    background: #aaa;
+}

@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Postly - Home{% endblock %}
+
+{% block content %}
+<!-- Hero / Featured Posts -->
+<section class="hero">
+    <div class="featured-posts">
+        {% for post in featured_posts %}
+        <div class="featured-card">
+            {% if post.image %}
+                <img src="{{ post.image.url }}" alt="{{ post.title }}">
+            {% else %}
+                <img src="{% static 'default-post.jpg' %}" alt="{{ post.title }}">
+            {% endif %}
+            <div class="overlay">
+                <h2><a href="{% url 'App:post_detail' post.slug %}">{{ post.title }}</a></h2>
+                <p>{{ post.excerpt|truncatewords:25 }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Main Content -->
+<main class="container">
+    <div class="content">
+        <h1>Latest Posts</h1>
+        {% for post in latest_posts %}
+        <article class="post">
+            {% if post.image %}
+                <img src="{{ post.image.url }}" alt="{{ post.title }}">
+            {% else %}
+                <img src="{% static 'default-post.jpg' %}" alt="{{ post.title }}">
+            {% endif %}
+            <div class="post-info">
+                <h2><a href="{% url 'App:post_detail' post.slug %}">{{ post.title }}</a></h2>
+                <p class="meta">By {{ post.author.username }} | {{ post.published_date|date:"M d, Y" }} | {{ post.category.name }}</p>
+                <p>{{ post.excerpt|truncatewords:30 }}</p>
+                <a href="{% url 'App:post_detail' post.slug %}" class="read-more">Read More →</a>
+            </div>
+        </article>
+        {% empty %}
+        <p>No posts found.</p>
+        {% endfor %}
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="categories">
+            <h2>Categories</h2>
+            <ul>
+                {% for category in categories %}
+                    <li><a href="{% url 'category_posts' category.slug %}">{{ category.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="recent-comments">
+            <h2>Recent Comments</h2>
+            <ul>
+                {% for comment in recent_comments %}
+                    <li>{{ comment.user.username }} on <a href="{% url 'App:post_detail' comment.post.slug %}">{{ comment.post.title }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </aside>
+</main>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-content">
+        <p>&copy; {{ now.year }} Postly. All rights reserved.</p>
+        <div class="social-links">
+            <a href="#"><img src="{% static 'icons/facebook.svg' %}" alt="Facebook"></a>
+            <a href="#"><img src="{% static 'icons/twitter.svg' %}" alt="Twitter"></a>
+            <a href="#"><img src="{% static 'icons/instagram.svg' %}" alt="Instagram"></a>
+        </div>
+    </div>
+</footer>
+{% endblock %}

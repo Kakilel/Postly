@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Register{% endblock %}
+
+{% block extra_head %}
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'Users/register.css' %}">
+  <div class="register-page">
+    <div class="register-container">
+      
+      <h2 class="register-title">Create an Account</h2>
+      <p class="register-subtitle">Join us and start your journey 🚀</p>
+
+      <form method="post" class="register-form">
+        {% csrf_token %}
+        
+        {% for field in form %}
+          <div class="register-field">
+            <label for="{{ field.id_for_label }}" class="register-label">
+              {{ field.label }}
+            </label>
+            {{ field }}
+            {% if field.errors %}
+              <p class="register-error">{{ field.errors|striptags }}</p>
+            {% endif %}
+          </div>
+        {% endfor %}
+
+        <button type="submit" class="register-button">Register</button>
+      </form>
+
+      <div class="register-divider">
+        <hr class="register-line">
+        <span class="register-divider-text">or</span>
+        <hr class="register-line">
+      </div>
+
+      <div class="register-social">
+        <button class="register-social-btn">Google</button>
+        <button class="register-social-btn">GitHub</button>
+      </div>
+
+      <p class="register-footer">
+        Already have an account? 
+        <a href="{% url 'Users:login' %}" class="register-link">Login</a>
+      </p>
+    </div>
+  </div>
+{% endblock %}

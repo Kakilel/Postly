@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Login{% endblock %}
+
+{% block extra_head %}{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'Users/login.css' %}">
+  <div class="login-container">
+    <h2 class="login-title">Login</h2>
+
+    {% if form.non_field_errors %}
+      <div class="login-error-box">
+        {{ form.non_field_errors }}
+      </div>
+    {% endif %}
+
+    <form method="post" class="login-form">
+      {% csrf_token %}
+      
+      {% for field in form %}
+        <div class="login-field">
+          <label for="{{ field.id_for_label }}" class="login-label">
+            {{ field.label }}
+          </label>
+          {{ field }}
+          {% if field.errors %}
+            <p class="login-error">{{ field.errors|striptags }}</p>
+          {% endif %}
+        </div>
+      {% endfor %}
+
+      <button type="submit" class="login-button">Login</button>
+    </form>
+
+    <p class="login-register">
+      Don’t have an account? 
+      <a href="{% url 'Users:register' %}" class="login-link">Register</a>
+    </p>
+  </div>
+{% endblock %}

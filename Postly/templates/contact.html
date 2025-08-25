@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Contact Us - Postly{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href= "{% static 'contact.css'%}">
+<section class="contact-hero">
+    <div class="container">
+        <h1>Contact Us</h1>
+        <p>We’d love to hear from you! Fill out the form below or reach us through our social channels.</p>
+    </div>
+</section>
+
+<section class="contact-main container">
+    <div class="contact-form-section">
+        <h2>Send a Message</h2>
+        <form action="{% url 'contact' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="name">Your Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Your Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+            </div>
+
+            <div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" name="subject" placeholder="Subject of your message" required>
+            </div>
+
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="6" placeholder="Type your message here..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit">Send Message</button>
+        </form>
+    </div>
+
+    <aside class="contact-info">
+        <h2>Our Office</h2>
+        <p>Postly Headquarters</p>
+        <p>123  Mombasa Rd, Nairobi, Kenya</p>
+        <p>Email: info@postly.com</p>
+        <p>Phone: +254 712 345 678</p>
+
+        <h2>Follow Us</h2>
+        <div class="social-links">
+            <a href="#"><img src="{% static 'icons/facebook.svg' %}" alt="Facebook"></a>
+            <a href="#"><img src="{% static 'icons/twitter.svg' %}" alt="Twitter"></a>
+            <a href="#"><img src="{% static 'icons/instagram.svg' %}" alt="Instagram"></a>
+            <a href="#"><img src="{% static 'icons/linkedin.svg' %}" alt="LinkedIn"></a>
+        </div>
+
+        <h2>Location</h2>
+        <div class="map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7977.492420641912!2d36.87947788703394!3d-1.3282825693050715!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f13040cca3027%3A0xd710b904557488db!2sThe%20Imaara%20Shopping%20Mall!5e0!3m2!1sen!2ske!4v1756078572433!5m2!1sen!2ske" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </aside>
+</section>
+
+{% endblock %}

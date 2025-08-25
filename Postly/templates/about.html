@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Postly - About Us{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="about-hero" >
+    <div class="hero-overlay">
+        <h1>About Postly</h1>
+        <p>Sharing stories, ideas, and insights that matter.</p>
+    </div>
+</section>
+
+<!-- Our Mission -->
+<section class="mission container">
+    <h2>Our Mission</h2>
+    <p>At Postly, we aim to deliver high-quality articles covering a wide range of topics—from tech and science to lifestyle and culture. Our goal is to inform, inspire, and connect readers from all walks of life.</p>
+</section>
+
+<!-- Our Story / Timeline -->
+<section class="story container">
+    <h2>Our Story</h2>
+    <div class="timeline">
+        <div class="timeline-item">
+            <h3>2022</h3>
+            <p>Postly was founded with the vision of creating a community-driven blogging platform.</p>
+        </div>
+        <div class="timeline-item">
+            <h3>2023</h3>
+            <p>Expanded to feature guest writers, exclusive interviews, and interactive content.</p>
+        </div>
+        <div class="timeline-item">
+            <h3>2025</h3>
+            <p>Now serving thousands of readers monthly with engaging articles and resources.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Team Section -->
+<section class="team container">
+    <h2>Meet Our Team</h2>
+    <div class="team-members">
+        <div class="member-card">
+            <img src="{% static 'images/team1.jpg' %}" alt="John Doe">
+            <h3>John Doe</h3>
+            <p>Founder & CEO</p>
+        </div>
+        <div class="member-card">
+            <img src="{% static 'images/team2.jpg' %}" alt="Jane Smith">
+            <h3>Jane Smith</h3>
+            <p>Editor-in-Chief</p>
+        </div>
+        <div class="member-card">
+            <img src="{% static 'images/team3.jpg' %}" alt="Alex Johnson">
+            <h3>Alex Johnson</h3>
+            <p>Lead Developer</p>
+        </div>
+    </div>
+</section>
+
+<!-- Statistics / Achievements -->
+<section class="stats container">
+    <h2>Our Achievements</h2>
+    <div class="stats-cards">
+        <div class="stat-card">
+            <h3>500+</h3>
+            <p>Articles Published</p>
+        </div>
+        <div class="stat-card">
+            <h3>50k+</h3>
+            <p>Monthly Readers</p>
+        </div>
+        <div class="stat-card">
+            <h3>200+</h3>
+            <p>Active Contributors</p>
+        </div>
+        <div class="stat-card">
+            <h3>10+</h3>
+            <p>Awards Won</p>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="cta container">
+    <h2>Join Our Community</h2>
+    <p>Whether you’re a writer, reader, or enthusiast, Postly welcomes you. Share your ideas and stay inspired.</p>
+    <a href="{% url 'App:post_create' %}" class="btn-primary">Write for Postly</a>
+</section>
+
+{% endblock %}

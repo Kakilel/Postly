@@ -1,0 +1,215 @@
+/* -------------------------
+   General Layout
+------------------------- */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+    background: #f4f6f9;
+    color: #333;
+    line-height: 1.7;
+}
+
+/* -------------------------
+   Post Container
+------------------------- */
+.post-container {
+    max-width: 850px;
+    margin: 40px auto;
+    padding: 35px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+.post-container h1 {
+    font-size: 34px;
+    margin-bottom: 10px;
+    color: #1a1a1a;
+}
+
+.post-meta {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 25px;
+    font-style: italic;
+}
+
+.post-content {
+    font-size: 18px;
+    color: #444;
+    margin-bottom: 30px;
+    line-height: 1.8;
+}
+
+/* Divider */
+hr {
+    border: none;
+    border-top: 1px solid #eee;
+    margin: 30px 0;
+}
+
+/* -------------------------
+   Buttons
+------------------------- */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    margin: 8px 10px 8px 0;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    font-weight: 500;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+}
+
+/* Like/Unlike */
+.like {
+    background: #28a745;
+    color: #fff;
+}
+
+.like:hover {
+    background: #218838;
+}
+
+.unlike {
+    background: #dc3545;
+    color: #fff;
+}
+
+.unlike:hover {
+    background: #c82333;
+}
+
+/* Edit/Delete */
+.edit {
+    background: #ffc107;
+    color: #222;
+}
+
+.edit:hover {
+    background: #e0a800;
+}
+
+.delete {
+    background: #e74c3c;
+    color: #fff;
+}
+
+.delete:hover {
+    background: #c0392b;
+}
+
+/* Submit */
+.submit {
+    background: #007bff;
+    color: #fff;
+}
+
+.submit:hover {
+    background: #0056b3;
+}
+
+/* -------------------------
+   Comments
+------------------------- */
+.comment-box {
+    padding: 14px 18px;
+    margin: 15px 0;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    background: #fafafa;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.comment-box:hover {
+    background: #fefefe;
+    transform: translateY(-1px);
+}
+
+.comment-box p {
+    margin: 6px 0;
+    color: #444;
+}
+
+.comment-box strong {
+    color: #111;
+    font-weight: 600;
+}
+
+/* -------------------------
+   Comment Form
+------------------------- */
+.comment-form {
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.comment-form textarea {
+    width: 100%;
+    min-height: 110px;
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-family: inherit;
+    font-size: 15px;
+    resize: vertical;
+    margin-bottom: 14px;
+    transition: border 0.2s, box-shadow 0.2s;
+}
+
+.comment-form textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0,123,255,0.1);
+    outline: none;
+}
+
+/* -------------------------
+   Info Messages (Login prompts, etc.)
+------------------------- */
+.info-message {
+    margin: 15px 0;
+    padding: 12px 16px;
+    background: #eef5ff;
+    border: 1px solid #cce0ff;
+    border-radius: 8px;
+    color: #004085;
+    font-size: 14px;
+}
+
+/* -------------------------
+   Animations
+------------------------- */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* -------------------------
+   Responsive
+------------------------- */
+@media (max-width: 768px) {
+    .post-container {
+        margin: 20px;
+        padding: 22px;
+    }
+
+    .post-container h1 {
+        font-size: 26px;
+    }
+
+    .post-content {
+        font-size: 16px;
+    }
+}

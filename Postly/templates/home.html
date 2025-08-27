@@ -5,6 +5,7 @@
 
 {% block content %}
 <!-- Hero / Featured Posts -->
+<link rel="stylesheet" href="{% static 'home.css' %}">
 <section class="hero">
     <div class="featured-posts">
         {% for post in featured_posts %}
@@ -15,7 +16,7 @@
                 <img src="{% static 'default-post.jpg' %}" alt="{{ post.title }}">
             {% endif %}
             <div class="overlay">
-                <h2><a href="{% url 'App:post_detail' post.slug %}">{{ post.title }}</a></h2>
+                <h2><a href="{% url 'App:post_detail' post.pk %}">{{ post.title }}</a></h2>
                 <p>{{ post.excerpt|truncatewords:25 }}</p>
             </div>
         </div>
@@ -35,10 +36,10 @@
                 <img src="{% static 'default-post.jpg' %}" alt="{{ post.title }}">
             {% endif %}
             <div class="post-info">
-                <h2><a href="{% url 'App:post_detail' post.slug %}">{{ post.title }}</a></h2>
+                <h2><a href="{% url 'App:post_detail' post.pk %}">{{ post.title }}</a></h2>
                 <p class="meta">By {{ post.author.username }} | {{ post.published_date|date:"M d, Y" }} | {{ post.category.name }}</p>
                 <p>{{ post.excerpt|truncatewords:30 }}</p>
-                <a href="{% url 'App:post_detail' post.slug %}" class="read-more">Read More →</a>
+                <a href="{% url 'App:post_detail' post.pk %}" class="read-more">Read More →</a>
             </div>
         </article>
         {% empty %}
@@ -52,7 +53,7 @@
             <h2>Categories</h2>
             <ul>
                 {% for category in categories %}
-                    <li><a href="{% url 'category_posts' category.slug %}">{{ category.name }}</a></li>
+                    <li><a href="{% url 'category_posts' category.pk %}">{{ category.name }}</a></li>
                 {% endfor %}
             </ul>
         </div>
@@ -61,22 +62,10 @@
             <h2>Recent Comments</h2>
             <ul>
                 {% for comment in recent_comments %}
-                    <li>{{ comment.user.username }} on <a href="{% url 'App:post_detail' comment.post.slug %}">{{ comment.post.title }}</a></li>
+                    <li>{{ comment.user.username }} on <a href="{% url 'App:post_detail' comment.post.pk %}">{{ comment.post.title }}</a></li>
                 {% endfor %}
             </ul>
         </div>
     </aside>
 </main>
-
-<!-- Footer -->
-<footer>
-    <div class="footer-content">
-        <p>&copy; {{ now.year }} Postly. All rights reserved.</p>
-        <div class="social-links">
-            <a href="#"><img src="{% static 'icons/facebook.svg' %}" alt="Facebook"></a>
-            <a href="#"><img src="{% static 'icons/twitter.svg' %}" alt="Twitter"></a>
-            <a href="#"><img src="{% static 'icons/instagram.svg' %}" alt="Instagram"></a>
-        </div>
-    </div>
-</footer>
 {% endblock %}

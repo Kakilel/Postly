@@ -11,6 +11,7 @@ class Category(models.Model):
 
     class Meta:
         verbose_name_plural = "Categories"
+        ordering = ["name"]  # categories sorted alphabetically
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -23,36 +24,34 @@ class Category(models.Model):
 
 class Post(models.Model):
     title = models.CharField(max_length=200)
-    slug = models.SlugField(unique=True, blank=True)
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="posts")
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True, related_name="posts")
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="posts"
+    )
+    category = models.ForeignKey(
+        Category, on_delete=models.SET_NULL, null=True, blank=True, related_name="posts"
+    )
     content = models.TextField()
     image = models.ImageField(upload_to="blog_images/", blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="liked_posts", through="Like", blank=True)
+    likes = models.ManyToManyField(
+        settings.AUTH_USER_MODEL, related_name="liked_posts", through="Like", blank=True
+    )
     featured = models.BooleanField(default=False)
     published_date = models.DateTimeField(default=timezone.now)
 
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            base_slug = slugify(self.title)
-            slug = base_slug
-            counter = 1
-            while Post.objects.filter(slug=slug).exists():
-                slug = f"{base_slug}-{counter}"
-                counter += 1
-            self.slug = slug
-        super().save(*args, **kwargs)
+    class Meta:
+        ordering = ["-published_date", "-created_at"]
 
     def get_absolute_url(self):
-        return reverse("App:post_detail", kwargs={"slug": self.slug})
+        return reverse("App:post_detail", kwargs={"pk": self.pk})
 
     def total_likes(self):
         return self.likes.count()
 
     def __str__(self):
         return self.title
+
 
 
 class Comment(models.Model):
@@ -62,7 +61,7 @@ class Comment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ["-created_at"]
+        ordering = ["-created_at"]  # newest comments first
 
     def __str__(self):
         return f"Comment by {self.author} on {self.post}"
@@ -75,6 +74,7 @@ class Like(models.Model):
 
     class Meta:
         unique_together = ("user", "post")
+        ordering = ["-timestamp"]
 
     def __str__(self):
         return f"{self.user} likes {self.post}"

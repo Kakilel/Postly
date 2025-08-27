@@ -3,10 +3,10 @@
 {% block title %}{{ form.instance.pk|yesno:"Edit Post,New Post" }}{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'App/form.css' %}">
 {% endblock %}
 
 {% block content %}
+<link rel="stylesheet" href="{% static 'form.css' %}">
 <div class="container">
   <h1>{{ form.instance.pk|yesno:"Edit Post,New Post" }}</h1>
   <form method="post">

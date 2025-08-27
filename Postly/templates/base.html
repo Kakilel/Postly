@@ -5,29 +5,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}My Site{% endblock %}</title>
-    {% load static %}
     <link rel="stylesheet" href="{% static 'styles.css' %}">
 </head>
 <body>
     <header class="site-header">
         <nav class="navbar">
-            <a href="{% url 'home' %}" class="nav-link">Homepage</a>
-            <a href="{% url 'App:post_list' %}" class="nav-link">Blogs</a>
-            <a href="{% url 'contact' %}" class="nav-link">Contact Us</a>
-            
-            {% if user.is_authenticated %}
-            <!-- Visible only when logged in -->
-                <span class="welcome">Welcome, {{ user.username }}!</span>
-                <li><a href="{% url 'home' %}">Homepage</a></li>
-                <li><a href="{% url 'Apps:post_list' %}">Blogs</a></li>
-                <li><a href="{% url 'App:categories' %}">Categories</a></li>
-                <li><a href="{% url 'Users:logout' %}">Logout</a></li>
-                <a href="{% url 'Users:profile' %}" class="nav-link">Profile</a>
-            {% else %}
-                <!-- Visible only when logged out -->
-                <a href="{% url 'Users:login' %}" class="nav-link">Login</a>
-                <a href="{% url 'Users:register' %}" class="nav-link">Register</a>
-            {% endif %}
+            <ul class="nav-list">
+                <li><a href="{% url 'home' %}" class="nav-link">Homepage</a></li>
+                <li><a href="{% url 'App:post_list' %}" class="nav-link">Blogs</a></li>
+                <li><a href="{% url 'contact' %}" class="nav-link">Contact Us</a></li>
+                <li><a href="{% url 'App:post_list' %}" class="nav-link">Categories</a></li>
+
+                {% if user.is_authenticated %}
+                    <li class="welcome">Welcome, {{ user.username }}!</li>
+                    <li><a href="{% url 'Users:profile' %}" class="nav-link">Profile</a></li>
+                    <li><a href="{% url 'Users:logout' %}" class="nav-link">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'Users:login' %}" class="nav-link">Login</a></li>
+                    <li><a href="{% url 'Users:register' %}" class="nav-link">Register</a></li>
+                {% endif %}
+            </ul>
         </nav>
     </header>
 
@@ -45,34 +42,33 @@
         {% block content %}{% endblock %}
     </main>
 
-<footer>
-  <div class="footer-container">
-    <div class="footer-section">
-      <h3>About Postly</h3>
-      <p>Postly is your go-to blog platform for insights, stories, and updates on a variety of topics. Stay connected and informed!</p>
-    </div>
-    <div class="footer-section">
-      <h3>Quick Links</h3>
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
-        <li><a href="#">Categories</a></li>
-      </ul>
-    </div>
-    <div class="footer-section">
-      <h3>Follow Us</h3>
-      <div class="social-links">
-        <a href="#"><img src="{% static 'icons/facebook.svg' %}" alt="Facebook"></a>
-        <a href="#"><img src="{% static 'icons/twitter.svg' %}" alt="Twitter"></a>
-        <a href="#"><img src="{% static 'icons/instagram.svg' %}" alt="Instagram"></a>
-      </div>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    &copy; {{ year|default:2025 }} Postly. All rights reserved.
-  </div>
-</footer>
-
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>About Postly</h3>
+                <p>Postly is your go-to blog platform for insights, stories, and updates on a variety of topics. Stay connected and informed!</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="{% url 'contact' %}">Contact</a></li>
+                    <li><a href="{% url 'App:post_list' %}">Categories</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="#"><img src="{% static 'icons/facebook.svg' %}" alt="Facebook"></a>
+                    <a href="#"><img src="{% static 'icons/twitter.svg' %}" alt="Twitter"></a>
+                    <a href="#"><img src="{% static 'icons/instagram.svg' %}" alt="Instagram"></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; {{ year|default:2025 }} Postly. All rights reserved.
+        </div>
+    </footer>
 </body>
 </html>

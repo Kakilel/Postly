@@ -4,17 +4,19 @@
 {% block title %}{{ post.title }}{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'App/post_detail.css' %}">
 {% endblock %}
 
 {% block content %}
+<link rel="stylesheet" href="{% static 'detail.css' %}">
 <div class="post-container">
   <h1>{{ post.title }}</h1>
   <p class="post-meta">By {{ post.author.username }} on {{ post.created_at|date:"M d, Y H:i" }}</p>
   <p class="post-content">{{ post.content }}</p>
   <hr>
 
+  <p><strong>{{ post.likes.count }}</strong> likes</p>
   <!-- Likes -->
+{% if user.is_authenticated %}
   <form method="post" action="{% url 'App:like_post' post.pk %}">
     {% csrf_token %}
     {% if user in post.likes.all %}
@@ -23,6 +25,9 @@
       <button type="submit" class="btn like">Like ({{ post.likes.count }})</button>
     {% endif %}
   </form>
+{% else %}
+  <p><a href="{% url 'Users:login' %}">Login</a> to like this post.</p>
+{% endif %}
 
   <!-- Edit/Delete if author -->
   {% if user == post.author %}
@@ -37,7 +42,7 @@
   {% for comment in post.comments.all %}
     <div class="comment-box">
       <p><strong>{{ comment.author.username }}</strong> said:</p>
-      <p>{{ comment.content }}</p>
+      <p>{{ comment.body }}</p>
       <small>{{ comment.created_at|date:"M d, Y H:i" }}</small>
     </div>
   {% empty %}

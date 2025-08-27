@@ -3,10 +3,10 @@
 {% block title %}All Posts{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'App/list.css' %}">
 {% endblock %}
 
 {% block content %}
+<link rel="stylesheet" href="{% static 'list.css' %}">
 <div class="container">
   <h1>All App Posts</h1>
   <a href="{% url 'App:post_create' %}" class="btn btn-primary">+ New Post</a>

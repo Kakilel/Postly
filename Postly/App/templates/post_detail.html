@@ -19,12 +19,20 @@
 {% if user.is_authenticated %}
   <form method="post" action="{% url 'App:like_post' post.pk %}">
     {% csrf_token %}
-    {% if user in post.likes.all %}
-      <button type="submit" class="btn unlike">Unlike ({{ post.likes.count }})</button>
-    {% else %}
-      <button type="submit" class="btn like">Like ({{ post.likes.count }})</button>
-    {% endif %}
-  </form>
+    <button 
+        type="submit" 
+        class="like-button" 
+        data-post-id="{{ post.pk }}" 
+        data-url="{% url 'App:like_post' post.pk %}">
+        {% if user in post.likes.all %}
+            Unlike
+        {% else %}
+            Like
+        {% endif %}
+    </button>
+</form>
+<p id="like-count-{{ post.pk }}">{{ post.likes.count }} Likes</p>
+<script src="{% static 'js/like.js' %}"></script>
 {% else %}
   <p><a href="{% url 'Users:login' %}">Login</a> to like this post.</p>
 {% endif %}

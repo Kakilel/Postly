@@ -3,6 +3,7 @@ from django.conf import settings
 from django.utils.text import slugify
 from django.urls import reverse
 from django.utils import timezone
+from cloudinary.models import CloudinaryField
 
 
 class Category(models.Model):
@@ -31,7 +32,7 @@ class Post(models.Model):
         Category, on_delete=models.SET_NULL, null=True, blank=True, related_name="posts"
     )
     content = models.TextField()
-    image = models.ImageField(upload_to="blog_images/", blank=True, null=True)
+    image = CloudinaryField('image', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     likes = models.ManyToManyField(

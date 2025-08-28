@@ -5,6 +5,7 @@ from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.utils import timezone
 from django.contrib import messages
+from django.http import JsonResponse
 
 from .models import Post, Comment, Like, Category
 from .forms import PostForm, CommentForm
@@ -94,16 +95,28 @@ def add_comment(request, pk):
     return redirect(post.get_absolute_url())
 
 
+
 @login_required
 def like_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    like, created = Like.objects.get_or_create(user=request.user, post=post)
-    if not created: 
-        like.delete()
-        messages.info(request, "You unliked this post 👎")
-    else:
-        messages.success(request, "You liked this post 👍")
-    return HttpResponseRedirect(post.get_absolute_url())
+
+    if request.method == "POST":
+        if request.user in post.likes.all():
+            post.likes.remove(request.user)
+            liked = False
+        else:
+            post.likes.add(request.user)
+            liked = True
+
+        if request.headers.get("X-Requested-With") == "XMLHttpRequest":
+            return JsonResponse({
+                "success": True,
+                "liked": liked,
+                "likes": post.likes.count()
+            })
+
+    return redirect("post_detail", pk=pk)
+
 
 
 

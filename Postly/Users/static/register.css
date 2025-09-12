@@ -1,0 +1,170 @@
+/* === Global Reset === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+/* === Page Layout === */
+.register-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #4f46e5, #9333ea);
+  padding: 20px;
+}
+
+/* === Container === */
+.register-container {
+  background: #fff;
+  padding: 40px 35px;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+/* === Titles === */
+.register-title {
+  font-size: 28px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 10px;
+  color: #111827;
+}
+
+.register-subtitle {
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 25px;
+  color: #6b7280;
+}
+
+/* === Form === */
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.register-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.register-label {
+  font-size: 14px;
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.register-field input {
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.register-field input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.2);
+}
+
+/* === Error Messages === */
+.register-error {
+  font-size: 12px;
+  color: #ef4444;
+  margin-top: 5px;
+}
+
+/* === Buttons === */
+.register-button {
+  margin-top: 10px;
+  background: linear-gradient(135deg, #6366f1, #9333ea);
+  color: white;
+  font-size: 16px;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.register-button:hover {
+  background: linear-gradient(135deg, #4f46e5, #7e22ce);
+  transform: translateY(-2px);
+}
+
+/* === Divider === */
+.register-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 25px 0;
+}
+
+.register-line {
+  flex: 1;
+  border: none;
+  border-top: 1px solid #d1d5db;
+}
+
+.register-divider-text {
+  margin: 0 12px;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* === Social Buttons === */
+.register-social {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.register-social-btn {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  background: #f9fafb;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 14px;
+}
+
+.register-social-btn:hover {
+  background: #f3f4f6;
+  border-color: #6366f1;
+  color: #6366f1;
+}
+
+/* === Footer === */
+.register-footer {
+  margin-top: 20px;
+  font-size: 13px;
+  text-align: center;
+  color: #6b7280;
+}
+
+.register-link {
+  color: #6366f1;
+  font-weight: 500;
+  text-decoration: none;
+  margin-left: 4px;
+}
+
+.register-link:hover {
+  text-decoration: underline;
+}
+
+/* === Animations === */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

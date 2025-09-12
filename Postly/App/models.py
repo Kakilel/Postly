@@ -25,19 +25,13 @@ class Category(models.Model):
 
 class Post(models.Model):
     title = models.CharField(max_length=200)
-    author = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="posts"
-    )
-    category = models.ForeignKey(
-        Category, on_delete=models.SET_NULL, null=True, blank=True, related_name="posts"
-    )
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="posts")
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True, related_name="posts")
     content = models.TextField()
     image = CloudinaryField('image', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    likes = models.ManyToManyField(
-        settings.AUTH_USER_MODEL, related_name="liked_posts", through="Like", blank=True
-    )
+    likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="liked_posts", through="Like", blank=True)
     featured = models.BooleanField(default=False)
     published_date = models.DateTimeField(default=timezone.now)
 

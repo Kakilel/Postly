@@ -4,8 +4,21 @@
 {% block title %}Postly - Home{% endblock %}
 
 {% block content %}
-<!-- Hero / Featured Posts -->
 <link rel="stylesheet" href="{% static 'home.css' %}">
+<section class="search-bar">
+    <form method="get" action="#">
+        <input 
+            type="text" 
+            name="q" 
+            placeholder="Search posts..." 
+            value="{{ request.GET.q|default:'' }}" 
+            class="search-input"
+        >
+        <button type="submit" class="search-button">Search</button>
+    </form>
+</section>
+
+<!-- Hero / Featured Posts -->
 <section class="hero">
     <div class="featured-posts">
         {% for post in featured_posts %}
@@ -17,9 +30,11 @@
             {% endif %}
             <div class="overlay">
                 <h2><a href="{% url 'App:post_detail' post.pk %}">{{ post.title }}</a></h2>
-                <p>{{ post.excerpt|truncatewords:25 }}</p>
+                <p>{{ post.content|truncatewords:25 }}</p>
             </div>
         </div>
+        {% empty %}
+            <p>No featured posts yet.</p>
         {% endfor %}
     </div>
 </section>
@@ -37,8 +52,11 @@
             {% endif %}
             <div class="post-info">
                 <h2><a href="{% url 'App:post_detail' post.pk %}">{{ post.title }}</a></h2>
-                <p class="meta">By {{ post.author.username }} | {{ post.published_date|date:"M d, Y" }} | {{ post.category.name }}</p>
-                <p>{{ post.excerpt|truncatewords:30 }}</p>
+                <p class="meta">
+                    By {{ post.author.username }} | {{ post.published_date|date:"M d, Y" }}
+                    {% if post.category %}| {{ post.category.name }}{% endif %}
+                </p>
+                <p>{{ post.content|truncatewords:30 }}</p>
                 <a href="{% url 'App:post_detail' post.pk %}" class="read-more">Read More →</a>
             </div>
         </article>
@@ -54,6 +72,8 @@
             <ul>
                 {% for category in categories %}
                     <li><a href="{% url 'category_posts' category.pk %}">{{ category.name }}</a></li>
+                {% empty %}
+                    <li>No categories yet.</li>
                 {% endfor %}
             </ul>
         </div>
@@ -62,7 +82,14 @@
             <h2>Recent Comments</h2>
             <ul>
                 {% for comment in recent_comments %}
-                    <li>{{ comment.user.username }} on <a href="{% url 'App:post_detail' comment.post.pk %}">{{ comment.post.title }}</a></li>
+                    <li>
+                        {{ comment.author.username }} on 
+                        <a href="{% url 'App:post_detail' comment.post.pk %}">
+                            {{ comment.post.title }}
+                        </a>
+                    </li>
+                {% empty %}
+                    <li>No recent comments.</li>
                 {% endfor %}
             </ul>
         </div>

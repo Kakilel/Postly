@@ -1,35 +1,32 @@
-{% extends "base.html" %}
-{% load static %}
-{% block title %}Profile{% endblock %}
+{% extends "base.html" %} {% load static %} {% block title %}Profile{% endblock
+%} {% block extra_head %} {% endblock %} {% block content %}
+<link rel="stylesheet" href="{% static 'profile.css' %}" />
+<div class="profile-container">
+  <h2 class="profile-title">Your Profile</h2>
 
-{% block extra_head %}
-{% endblock %}
-
-{% block content %}
-<link rel="stylesheet" href="{% static 'Users/profile.css' %}">
-  <div class="profile-container">
-    <h2 class="profile-title">Your Profile</h2>
-
-    <div class="profile-content">
-      {% if user.profile_image %}
-        <img src="{{ user.profile_image.url }}" alt="Profile Picture" 
-             class="profile-image">
-      {% else %}
-        <div class="profile-image-placeholder">
-          <span class="profile-placeholder-icon">👤</span>
-        </div>
-      {% endif %}
-
-      <div class="profile-details">
-        <p><span class="profile-label">Username:</span> {{ user.username }}</p>
-        <p><span class="profile-label">Email:</span> {{ user.email }}</p>
-        <p><span class="profile-label">Full Name:</span> {{ user.full_name }}</p>
-        <p><span class="profile-label">Bio:</span> {{ user.bio }}</p>
-      </div>
-
-      <a href="{% url 'Users:password_change' %}" class="profile-password-button">
-        Change Password
-      </a>
+  <div class="profile-content">
+    {% if user.profile_image %}
+    <img
+      src="{{ user.profile_image.url }}"
+      alt="Profile Picture"
+      class="profile-image"
+    />
+    {% else %}
+    <div class="profile-image-placeholder">
+      <span class="profile-placeholder-icon">👤</span>
     </div>
+    {% endif %}
+
+    <div class="profile-details">
+      <p><span class="profile-label">Username:</span> {{ user.username }}</p>
+      <p><span class="profile-label">Email:</span> {{ user.email }}</p>
+      <p><span class="profile-label">Full Name:</span> {{ user.full_name }}</p>
+      <p><span class="profile-label">Bio:</span> {{ user.bio }}</p>
+    </div>
+
+    <a href="{% url 'Users:edit_profile' %}" class="profile-password-button">
+      Edit Profile
+    </a>
   </div>
+</div>
 {% endblock %}

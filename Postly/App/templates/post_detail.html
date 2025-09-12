@@ -10,32 +10,37 @@
 <link rel="stylesheet" href="{% static 'detail.css' %}">
 <div class="post-container">
   <h1>{{ post.title }}</h1>
-  <p class="post-meta">By {{ post.author.username }} on {{ post.created_at|date:"M d, Y H:i" }}</p>
+  <p class="post-meta">
+    By {{ post.author.username }} 
+    on {{ post.created_at|date:"M d, Y H:i" }}
+    {% if post.category %}
+      | Category: <a href="{% url 'category_posts' post.category.pk %}">{{ post.category.name }}</a>
+    {% endif %}
+  </p>
+  
   <p class="post-content">{{ post.content }}</p>
   <hr>
 
-  <p><strong>{{ post.likes.count }}</strong> likes</p>
   <!-- Likes -->
-{% if user.is_authenticated %}
-  <form method="post" action="{% url 'App:like_post' post.pk %}">
-    {% csrf_token %}
-    <button 
-        type="submit" 
-        class="like-button" 
-        data-post-id="{{ post.pk }}" 
-        data-url="{% url 'App:like_post' post.pk %}">
-        {% if user in post.likes.all %}
-            Unlike
-        {% else %}
-            Like
-        {% endif %}
-    </button>
-</form>
-<p id="like-count-{{ post.pk }}">{{ post.likes.count }} Likes</p>
-<script src="{% static 'js/like.js' %}"></script>
-{% else %}
-  <p><a href="{% url 'Users:login' %}">Login</a> to like this post.</p>
-{% endif %}
+  <p><strong>{{ post.likes.count }}</strong> likes</p>
+  {% if user.is_authenticated %}
+    <form method="post" action="{% url 'App:like_post' post.pk %}" class="like-form">
+      {% csrf_token %}
+      <button type="submit" class="like-button" 
+          data-post-id="{{ post.pk }}" 
+          data-url="{% url 'App:like_post' post.pk %}">
+          {% if user in post.likes.all %}
+              <i class="fa-solid fa-heart liked"></i>
+          {% else %}
+              <i class="fa-regular fa-heart"></i>
+          {% endif %}
+      </button>
+    </form>
+    <p id="like-count-{{ post.pk }}" class="like-count">{{ post.likes.count }} Likes</p>
+    <script src="{% static 'js/like.js' %}"></script>
+  {% else %}
+    <p><a href="{% url 'Users:login' %}">Login</a> to like this post.</p>
+  {% endif %}
 
   <!-- Edit/Delete if author -->
   {% if user == post.author %}

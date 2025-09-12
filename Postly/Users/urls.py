@@ -9,11 +9,12 @@ urlpatterns = [
     path("login/", views.login_view, name="login"),
     path("logout/", views.logout_view, name="logout"),
     path("profile/", views.profile_view, name="profile"),
+    path("profile/edit/", views.edit_profile_view, name="edit_profile"),
     path("password/change/", auth_views.PasswordChangeView.as_view(template_name="passwords.html"), name="password_change"),
     path("password/change/done/", auth_views.PasswordChangeDoneView.as_view(template_name="passwords.html"), name="password_change_done"),
     path("password/reset/", auth_views.PasswordResetView.as_view(template_name="passwords.html"), name="password_reset"),
     path("password/reset/done/", auth_views.PasswordResetDoneView.as_view(template_name="passwords.html"), name="password_reset_done"),
     path("password/reset/<uidb64>/<token>/", auth_views.PasswordResetConfirmView.as_view(template_name="passwords.html"), name="password_reset_confirm"),
     path("password/reset/complete/", auth_views.PasswordResetCompleteView.as_view(template_name="passwords.html"), name="password_reset_complete"),
-    path("api/users/", views.UserListAPI.as_view(), name="user-list"),
+    path("api/user_list/<int:pk>", views.user_list, name="user-list"),
 ]

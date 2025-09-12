@@ -8,19 +8,30 @@ from django.views.decorators.http import require_POST
 
 
 def home(request):
-    featured_posts = Post.objects.filter(featured=True).order_by('-created_at')[:3]
-    latest_posts = Post.objects.all().order_by('-created_at')[:10]
-    categories = Category.objects.all()
-    recent_comments = Comment.objects.order_by('-created_at')[:5]
+    query = request.GET.get("q")
+    category_slug = request.GET.get("category")
 
-    return render(request, 'home.html', {
-        'featured_posts': featured_posts,
-        'latest_posts': latest_posts,
-        'categories': categories,
-        'recent_comments': recent_comments,
-        'now': timezone.now(),
+    posts = Post.objects.all().order_by("-published_date")
+
+    if query:
+        posts = posts.filter(title__icontains=query)
+
+    if category_slug:
+        posts = posts.filter(category__slug=category_slug)
+
+    featured_posts = posts.filter(featured=True)[:3]
+    latest_posts = posts[:10]
+    categories = Category.objects.all()
+    recent_comments = Comment.objects.select_related("post", "author").order_by("-created_at")[:5]
+
+    return render(request, "home.html", {
+        "featured_posts": featured_posts,
+        "latest_posts": latest_posts,
+        "categories": categories,
+        "recent_comments": recent_comments,
+        "selected_category": category_slug,
     })
-# Postly/views.py
+
 
 def contact(request):
     if request.method == "POST":

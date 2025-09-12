@@ -1,30 +1,46 @@
-{% extends "base.html" %}
-{% load static %}
-{% block title %}All Posts{% endblock %}
+{% extends "base.html" %} 
+{% load static %} 
 
+{% block title %}All Posts{% endblock %} 
 
 {% block content %}
-<link rel="stylesheet" href="{% static 'list.css' %}">
+<link rel="stylesheet" href="{% static 'list.css' %}" />
 <div class="container">
   <h1>All App Posts</h1>
   <a href="{% url 'App:post_create' %}" class="btn btn-primary">+ New Post</a>
-  <hr>
+  <hr />
 
   {% for post in posts %}
-    <div class="card">
-      <div class="card-body">
-        <h3><a href="{% url 'App:post_detail' post.pk %}">{{ post.title }}</a></h3>
-        <p>by {{ post.author.username }} | {{ post.created_at|date:"M d, Y" }}</p>
-        <p>{{ post.content|truncatewords:30 }}</p>
-        <p>
-          {{ post.likes.count }} likes |
-          {{ post.comments.count }} comments
-        </p>
-        <a href="{% url 'App:post_detail' post.pk %}" class="btn-info">Read More</a>
-      </div>
+  <div class="card">
+    <div class="card-body">
+      <h3>
+        <a href="{% url 'App:post_detail' post.pk %}">{{ post.title }}</a>
+      </h3>
+      <p>
+        by {{ post.author.username }} | {{ post.created_at|date:"M d, Y" }}
+        {% if post.category %}
+          | Category: 
+          <a href="{% url 'category_posts' post.category.pk %}">
+            {{ post.category.name }}
+          </a>
+        {% endif %}
+      </p>
+      <p>{{ post.content|truncatewords:30 }}</p>
+      <p>
+        <span class="like-section" data-post-id="{{ post.id }}">
+          <i class="fa fa-heart {% if user in post.likes.all %}liked{% endif %}"></i>
+          <span class="like-count">{{ post.likes.count }}</span>
+        </span>
+        | {{ post.comments.count }} comments
+      </p>
+      <a href="{% url 'App:post_detail' post.pk %}" class="btn-info">Read More</a>
     </div>
+  </div>
   {% empty %}
-    <p>No posts yet. Be the first to <a href="{% url 'App:post_create' %}">write one</a>!</p>
+  <p>
+    No posts yet. Be the first to
+    <a href="{% url 'App:post_create' %}">write one</a>!
+  </p>
   {% endfor %}
 </div>
 {% endblock %}

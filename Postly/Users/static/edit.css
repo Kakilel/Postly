@@ -1,0 +1,101 @@
+/* === Profile Edit Page Styles === */
+body {
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #4f46e5, #9333ea);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-container {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 15px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.profile-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #4f46e5;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.profile-form p {
+  margin-bottom: 1rem;
+}
+
+.profile-form label {
+  font-weight: 500;
+  color: #333;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.profile-form input,
+.profile-form select,
+.profile-form textarea {
+  width: 100%;
+  padding: 0.7rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.profile-form input:focus,
+.profile-form select:focus,
+.profile-form textarea:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 5px rgba(79, 70, 229, 0.4);
+}
+
+.profile-password-button {
+  display: block;
+  width: 100%;
+  padding: 0.8rem;
+  background: #4f46e5;
+  color: #fff;
+  font-weight: 600;
+  text-align: center;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background 0.3s ease;
+}
+
+.profile-password-button:hover {
+  background: #4338ca;
+}
+
+.profile-back-button {
+  display: inline-block;
+  margin-top: 1rem;
+  text-align: center;
+  color: #4f46e5;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.profile-back-button:hover {
+  color: #9333ea;
+}
+
+/* === Fade In Animation === */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

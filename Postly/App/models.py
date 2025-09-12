@@ -12,7 +12,7 @@ class Category(models.Model):
 
     class Meta:
         verbose_name_plural = "Categories"
-        ordering = ["name"]  # categories sorted alphabetically
+        ordering = ["name"] 
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -56,7 +56,7 @@ class Comment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ["-created_at"]  # newest comments first
+        ordering = ["-created_at"]  
 
     def __str__(self):
         return f"Comment by {self.author} on {self.post}"

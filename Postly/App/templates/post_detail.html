@@ -17,7 +17,13 @@
       | Category: <a href="{% url 'category_posts' post.category.pk %}">{{ post.category.name }}</a>
     {% endif %}
   </p>
-  
+
+  {% if post.image %}
+    <div class="post-image">
+      <img src="{{ post.image.url }}" alt="{{ post.title }}">
+    </div>
+  {% endif %}
+
   <p class="post-content">{{ post.content }}</p>
   <hr>
 

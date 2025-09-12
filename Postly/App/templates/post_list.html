@@ -25,6 +25,15 @@
           </a>
         {% endif %}
       </p>
+
+      {% if post.image %}
+        <div class="post-thumbnail">
+          <a href="{% url 'App:post_detail' post.pk %}">
+            <img src="{{ post.image.url }}" alt="{{ post.title }}">
+          </a>
+        </div>
+      {% endif %}
+
       <p>{{ post.content|truncatewords:30 }}</p>
       <p>
         <span class="like-section" data-post-id="{{ post.id }}">

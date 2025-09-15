@@ -4,6 +4,10 @@ from django.utils.text import slugify
 from django.urls import reverse
 from django.utils import timezone
 from cloudinary.models import CloudinaryField
+from django.views.generic import *
+from django.urls import reverse_lazy
+from django.http import HttpResponseRedirect
+from .forms import *
 
 
 class Category(models.Model):
@@ -28,7 +32,7 @@ class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="posts")
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True, related_name="posts")
     content = models.TextField()
-    image = CloudinaryField('image', blank=True, null=True)
+    image = models.ImageField(upload_to='posts/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="liked_posts", through="Like", blank=True)
@@ -73,3 +77,30 @@ class Like(models.Model):
 
     def __str__(self):
         return f"{self.user} likes {self.post}"
+
+class PostDeleteView(DeleteView):
+    model = Post
+    template_name = "post_confirm_delete.html"
+    success_url = reverse_lazy("App:post_list")
+
+class PostUpdateView(UpdateView):
+    model = Post
+    form_class = PostForm
+    template_name = "post_form.html"
+
+class PostCreateView(CreateView):
+    model = Post
+    form_class = PostForm
+    template_name = "post_form.html"
+
+class PostDetailView(DetailView):
+    model = Post
+    template_name = "post_detail.html"
+    context_object_name = "post"
+
+class PostListView(ListView):
+    model = Post
+    template_name = "post_list.html"
+    context_object_name = "posts"
+    ordering = ["-created_at"]
+    paginate_by = 10 

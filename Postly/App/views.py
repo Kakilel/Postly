@@ -6,9 +6,12 @@ from django.http import HttpResponseRedirect
 from django.utils import timezone
 from django.contrib import messages
 from django.http import JsonResponse
-
-from .models import Post, Comment, Like, Category
-from .forms import PostForm, CommentForm
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+from .models import *
+from .forms import *
+from .serializer import *
 
 
 class PostListView(ListView):
@@ -36,7 +39,6 @@ class PostDetailView(DetailView):
             ).exists()
         return context
 
-
 class PostCreateView(CreateView):
     model = Post
     form_class = PostForm
@@ -52,7 +54,6 @@ class PostCreateView(CreateView):
             return redirect("Users:login")
         return super().dispatch(request, *args, **kwargs)
 
-
 class PostUpdateView(UpdateView):
     model = Post
     form_class = PostForm
@@ -65,7 +66,6 @@ class PostUpdateView(UpdateView):
             return redirect(post.get_absolute_url())
         return super().dispatch(request, *args, **kwargs)
 
-
 class PostDeleteView(DeleteView):
     model = Post
     template_name = "post_confirm_delete.html"
@@ -77,7 +77,6 @@ class PostDeleteView(DeleteView):
             messages.error(request, "You cannot delete this post ")
             return redirect(post.get_absolute_url())
         return super().dispatch(request, *args, **kwargs)
-
 
 @login_required
 def add_comment(request, pk):
@@ -93,8 +92,6 @@ def add_comment(request, pk):
         else:
             messages.error(request, "Failed to add comment ")
     return redirect(post.get_absolute_url())
-
-
 
 @login_required
 def like_post(request, pk):
@@ -118,32 +115,69 @@ def like_post(request, pk):
     return redirect("post_detail", pk=pk)
 
 
+@api_view(['GET', 'POST'])
+def post_list(request):
+    if request.method == 'GET':
+        posts = Post.objects.all()
+        serializer = PostSerializer(posts, many=True)
+        return Response(serializer.data)
 
+    elif request.method == 'POST':
+        serializer = PostSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(author=request.user)  # auto set logged-in user
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-def home(request):
-    query = request.GET.get("q")  # search query
-    category_slug = request.GET.get("category")  # selected category
+@api_view(['GET', 'PUT', 'DELETE'])
+def post_detail(request, pk):
+    post = get_object_or_404(Post, pk=pk)
 
-    featured_posts = Post.objects.filter(featured=True).order_by("-published_date")[:3]
-    posts = Post.objects.all().order_by("-published_date")  # we'll filter this
-    categories = Category.objects.all()
-    recent_comments = Comment.objects.select_related("post", "author").order_by("-created_at")[:5]
+    if request.method == 'GET':
+        serializer = PostSerializer(post)
+        return Response(serializer.data)
 
-    selected_category = None
+    elif request.method == 'PUT':
+        serializer = PostSerializer(post, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save(author=request.user)  # keep user consistent
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    if query:
-        posts = posts.filter(title__icontains=query) | posts.filter(content__icontains=query)
+    elif request.method == 'DELETE':
+        post.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
-    if category_slug:
-        selected_category = get_object_or_404(Category, slug=category_slug)
-        posts = posts.filter(category=selected_category)
+@api_view(['GET', 'POST'])
+def category_list(request):
+    if request.method == 'GET':
+        categories = Category.objects.all()
+        serializer = CategorySerializer(categories, many=True)
+        return Response(serializer.data)
 
-    return render(request, "homepage.html", {
-        "featured_posts": featured_posts,
-        "latest_posts": posts[:10],  # filtered latest posts
-        "categories": categories,
-        "recent_comments": recent_comments,
-        "selected_category": selected_category,
-        "query": query,
-    })
+    elif request.method == 'POST':
+        serializer = CategorySerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['POST'])
+def add_comment(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    serializer = CommentSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save(post=post, author=request.user)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def like_post(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    like, created = Like.objects.get_or_create(user=request.user, post=post)
+
+    if not created:  # if already liked, unlike
+        like.delete()
+        return Response({"message": "Unliked"}, status=status.HTTP_200_OK)
+
+    return Response({"message": "Liked"}, status=status.HTTP_201_CREATED)

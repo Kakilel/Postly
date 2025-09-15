@@ -1,4 +1,6 @@
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from . import views
 
 app_name = "App"
@@ -13,4 +15,14 @@ urlpatterns = [
     path("<int:pk>/like/", views.like_post, name="like_post"),
     path("<int:pk>/", views.PostDetailView.as_view(), name="post_detail"),
     
+    #API paths
+    path("api/categories/", views.category_list, name="api_category_list"),
+    path("api/posts/", views.post_list, name="api_post_list"),
+    path("api/posts/<int:pk>/", views.post_detail, name="api_post_detail"),
+    path("api/posts/<int:post_id>/comments/", views.comment_list, name="api_comment_list"),
+    path("api/posts/<int:post_id>/like/", views.like_post, name="api_like_post"),
+    
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

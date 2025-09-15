@@ -6,7 +6,6 @@ from . import views
 app_name = "App"
 
 urlpatterns = [
-    path("", views.home, name="home"),
     path("posts/", views.PostListView.as_view(), name="post_list"),
     path("create/", views.PostCreateView.as_view(), name="post_create"),
     path("<int:pk>/edit/", views.PostUpdateView.as_view(), name="post_edit"),
@@ -19,7 +18,6 @@ urlpatterns = [
     path("api/categories/", views.category_list, name="api_category_list"),
     path("api/posts/", views.post_list, name="api_post_list"),
     path("api/posts/<int:pk>/", views.post_detail, name="api_post_detail"),
-    path("api/posts/<int:post_id>/comments/", views.comment_list, name="api_comment_list"),
     path("api/posts/<int:post_id>/like/", views.like_post, name="api_like_post"),
     
 ]

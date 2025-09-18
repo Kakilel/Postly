@@ -74,6 +74,12 @@ CLOUDINARY_STORAGE = {
     "API_KEY": os.getenv("API_KEY"),
     "API_SECRET": os.getenv("API_SECRET"),
 }
+cloudinary.config( 
+    cloud_name = os.getenv("CLOUD_NAME"), 
+    api_key = os.getenv("API_KEY"), 
+    api_secret = os.getenv("API_SECRET"),
+    secure = True
+)
 
 DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
@@ -90,7 +96,7 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+                'django.contrib.messages.context_processors.messages', 
             ],
         },
     },
@@ -155,6 +161,11 @@ STATICFILES_DIRS = [
 ]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
+# Media files (uploads)
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -163,4 +174,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = 'App:post_list'
 LOGOUT_REDIRECT_URL = 'Users:login'
-LOGIN_URL = 'login'
+LOGIN_URL = 'Users:login'

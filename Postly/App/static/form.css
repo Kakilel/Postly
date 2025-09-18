@@ -1,56 +1,109 @@
-/* General container */
-.container {
-  max-width: 600px;
+/* === Container Styling === */
+.container.form-container {
+  max-width: 700px;
   margin: 3rem auto;
-  padding: 2rem;
+  padding: 2.5rem;
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Heading */
-.container h1 {
+/* === Heading === */
+.form-container h1 {
   text-align: center;
-  font-size: 1.8rem;
-  margin-bottom: 1.5rem;
+  font-size: 1.9rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
   color: #333;
 }
 
-/* Form labels */
-form p label {
+/* === Form Group === */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
   display: block;
   font-weight: 600;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.6rem;
   color: #444;
 }
 
-/* Inputs & Textareas */
-form p input[type="text"],
-form p input[type="email"],
-form p input[type="password"],
-form p textarea,
-form p select {
+/* === Inputs, Textarea, Select === */
+.post-form input[type="text"],
+.post-form input[type="email"],
+.post-form input[type="password"],
+.post-form input[type="file"],
+.post-form textarea,
+.post-form select {
   width: 100%;
-  padding: 0.75rem;
+  padding: 0.8rem 1rem;
   border: 1px solid #ccc;
   border-radius: 8px;
   font-size: 1rem;
-  margin-bottom: 1rem;
+  font-family: inherit;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-form p input:focus,
-form p textarea:focus,
-form p select:focus {
+/* Focus state */
+.post-form input:focus,
+.post-form textarea:focus,
+.post-form select:focus {
   border-color: #28a745;
   box-shadow: 0 0 6px rgba(40, 167, 69, 0.3);
   outline: none;
 }
 
-/* Buttons */
+/* === File Input === */
+.post-form input[type="file"] {
+  padding: 0.6rem;
+  border: 1px dashed #aaa;
+  border-radius: 8px;
+  background: #fafafa;
+  cursor: pointer;
+}
+
+.post-form input[type="file"]:hover {
+  border-color: #28a745;
+}
+
+/* === Textarea as Blog Editor === */
+.post-form textarea {
+  min-height: 180px;
+  resize: vertical;
+  line-height: 1.6;
+  font-size: 1rem;
+  background: #fdfdfd;
+}
+
+/* === Custom Select === */
+.custom-select select {
+  appearance: none;
+  background: #fafafa
+    url("data:image/svg+xml;utf8,<svg fill='gray' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>")
+    no-repeat right 1rem center;
+  background-size: 16px;
+  padding-right: 2.5rem;
+  font-weight: 500;
+}
+
+.custom-select select option {
+  padding: 0.75rem;
+  font-size: 1rem;
+  background: #fff;
+}
+
+/* === Buttons === */
+.form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
 .btn {
   display: inline-block;
-  padding: 0.65rem 1.5rem;
+  padding: 0.7rem 1.6rem;
   font-size: 1rem;
   border-radius: 8px;
   font-weight: 600;
@@ -74,10 +127,86 @@ form p select:focus {
   background: #6c757d;
   color: #fff;
   border: none;
-  margin-left: 0.8rem;
 }
 
 .btn-secondary:hover {
   background: #5a6268;
   transform: scale(1.03);
 }
+
+/* === Responsive Design === */
+@media (max-width: 768px) {
+  .container.form-container {
+    padding: 1.5rem;
+    margin: 2rem 1rem;
+  }
+
+  .form-container h1 {
+    font-size: 1.6rem;
+  }
+
+  .form-buttons {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+/* === Category Dropdown Styling === */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-size: 1rem;
+}
+
+.form-select {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background: #fff;
+  font-size: 1rem;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, #28a745 50%),
+                    linear-gradient(135deg, #28a745 50%, transparent 50%);
+  background-position: calc(100% - 20px) calc(1.2em),
+                       calc(100% - 15px) calc(1.2em);
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+}
+
+.form-select:hover {
+  border-color: #28a745;
+}
+
+.form-select:focus {
+  outline: none;
+  border-color: #28a745;
+  box-shadow: 0 0 6px rgba(40, 167, 69, 0.3);
+}
+
+/* Dropdown option styling */
+.form-select option {
+  padding: 0.8rem;
+  font-size: 1rem;
+  background: #fff;
+  color: #333;
+}
+
+/* Disabled option (placeholder) */
+.form-select option[disabled] {
+  color: #888;
+}
+

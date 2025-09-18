@@ -1,11 +1,10 @@
-/* Container */
 .container {
   max-width: 800px;
   margin: 2rem auto;
   padding: 1rem;
 }
 
-/* Page title */
+
 .container h1 {
   font-size: 1.8rem;
   font-weight: 600;
@@ -14,7 +13,7 @@
   text-align: center;
 }
 
-/* New Post button */
+
 .btn.btn-primary {
   display: inline-block;
   background: #4cafef;
@@ -31,7 +30,23 @@
   background: #3a97d6;
 }
 
-/* Card layout for each post */
+.btn-info {
+  display: inline-block;
+  margin-top: 0.5rem;
+  background: #eee;
+  color: #333;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.btn-info:hover {
+  background: #ddd;
+}
+
+
 .card {
   background: var(--color-bg, #fff);
   border-radius: 12px;
@@ -66,7 +81,29 @@
   color: #555;
 }
 
-/* Like section (heart + count) */
+
+.post-thumbnail {
+  margin: 1rem 0;
+  overflow: hidden;
+  border-radius: 10px;
+  position: relative;
+}
+
+.post-thumbnail img {
+  width: 100%;
+  max-height: 280px; 
+  object-fit: cover; 
+  border-radius: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: block;
+}
+
+.post-thumbnail img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+}
+
+
 .like-section {
   display: inline-flex;
   align-items: center;
@@ -85,36 +122,67 @@
 }
 
 .like-section i.liked {
-  color: #e63946; /* Red heart when liked */
+  color: #e63946;
 }
 
 .like-count {
   font-size: 0.9rem;
   color: #e63946;
 }
-
-/* "Read More" button */
-.btn-info {
-  display: inline-block;
-  margin-top: 0.5rem;
-  background: #eee;
-  color: #333;
-  padding: 0.5rem 1rem;
+.category-filter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0;
+  padding: 10px 15px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
   border-radius: 8px;
-  font-size: 0.9rem;
-  text-decoration: none;
-  transition: background 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  max-width: 350px;
 }
 
-.btn-info:hover {
-  background: #ddd;
+/* Label */
+.category-filter label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
 }
 
-.post-thumbnail img {
-  max-width: 100%;
-  height: auto;
+/* Dropdown */
+.category-filter select {
+  flex: 1;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #d1d5db;
   border-radius: 6px;
-  margin: 10px 0;
-  display: block;
+  background-color: #ffffff;
+  color: #111827;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
 }
 
+/* Hover & Focus effect */
+.category-filter select:hover {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.2);
+}
+
+.category-filter select:focus {
+  outline: none;
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79,70,229,0.3);
+}
+
+/* Responsive: center it on small screens */
+@media (max-width: 600px) {
+  .category-filter {
+    flex-direction: column;
+    align-items: stretch;
+    max-width: 100%;
+  }
+  
+  .category-filter label {
+    margin-bottom: 5px;
+  }
+}

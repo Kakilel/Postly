@@ -14,13 +14,13 @@
     By {{ post.author.username }} 
     on {{ post.created_at|date:"M d, Y H:i" }}
     {% if post.category %}
-      | Category: <a href="{% url 'category_posts' post.category.pk %}">{{ post.category.name }}</a>
-    {% endif %}
+      | Category: <a href="{% url 'App:post_list' %}?category={{ post.category.slug }}">{{ post.category.name }}</a>
+    {% endif %}|<span class="post-views" data-post-id="{{post.id}}">{{post.views}} views</span>
   </p>
 
   {% if post.image %}
     <div class="post-image">
-      <img src="{{ post.image.url }}" alt="{{ post.title }} style="max-width:100%; height:auto;"/>
+      <img src="{{ post.image.url }}" alt="{{ post.title }}" style="max-width:100%; height:auto;"/>
     </div>
   {% endif %}
 
@@ -80,4 +80,5 @@
     <p><a href="{% url 'Users:login' %}">Login</a> to comment.</p>
   {% endif %}
 </div>
+<script src="{% static 'js/post.js' %}"></script>
 {% endblock %}

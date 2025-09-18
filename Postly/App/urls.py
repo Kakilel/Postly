@@ -13,12 +13,13 @@ urlpatterns = [
     path("<int:pk>/comment/", views.add_comment, name="add_comment"),
     path("<int:pk>/like/", views.like_post, name="like_post"),
     path("<int:pk>/", views.PostDetailView.as_view(), name="post_detail"),
+    path("filter-posts/",views.filter_posts, name="filter_posts"),
     
     #API paths
-    path("api/categories/", views.category_list, name="api_category_list"),
-    path("api/posts/", views.post_list, name="api_post_list"),
-    path("api/posts/<int:pk>/", views.post_detail, name="api_post_detail"),
-    path("api/posts/<int:post_id>/like/", views.like_post, name="api_like_post"),
+    path("api/categories/", views.category_list_api, name="api_category_list"),
+    path("api/posts/", views.post_list_api, name="api_post_list"),
+    path("api/posts/<int:pk>/", views.post_detail_api, name="api_post_detail"),
+    path("api/posts/<int:post_id>/like/", views.like_post_api, name="api_like_post"),
     
 ]
 

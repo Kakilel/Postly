@@ -1,11 +1,10 @@
-/* comment.css */
 :root {
-  --color-bg: #f5f7fa;        /* Off-white background */
-  --color-primary: #1e3a5f;   /* Deep navy - header/footer */
-  --color-accent: #e85d75;    /* Coral red - highlights, buttons */
-  --color-secondary: #2e8b8b; /* Teal - links & accents */
-  --color-text: #2b2b2b;      /* Primary text */
-  --color-muted: #a0a7b5;     /* Muted gray-blue */
+  --color-bg: #f5f7fa;       
+  --color-primary: #1e3a5f;   
+  --color-accent: #e85d75;    
+  --color-secondary: #2e8b8b; 
+  --color-text: #2b2b2b;      
+  --color-muted: #a0a7b5;    
 }
 
 body {

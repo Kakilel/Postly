@@ -30,12 +30,13 @@ class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="posts")
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True, related_name="posts")
     content = models.TextField()
-    image = CloudinaryField('image', blank=True, null=True)
+    image = models.ImageField(upload_to="posts/", blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="liked_posts", through="Like", blank=True)
     featured = models.BooleanField(default=False)
     published_date = models.DateTimeField(default=timezone.now)
+    views = models.PositiveIntegerField(default=0)
 
     class Meta:
         ordering = ["-published_date", "-created_at"]
@@ -76,3 +77,14 @@ class Like(models.Model):
     def __str__(self):
         return f"{self.user} likes {self.post}"
 
+from django.db import models
+from django.contrib.auth.models import User
+
+class PostView(models.Model):
+    post = models.ForeignKey('Post', on_delete=models.CASCADE, related_name='post_views')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
+    ip_address = models.GenericIPAddressField(null=True, blank=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('post', 'user', 'ip_address')

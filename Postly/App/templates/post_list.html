@@ -10,6 +10,21 @@
   <a href="{% url 'App:post_create' %}" class="btn btn-primary">+ New Post</a>
   <hr />
 
+ 
+  <form method="get" class="category-filter">
+    <label for="category">Filter by Category:</label>
+    <select name="category" id="category" onchange="this.form.submit()">
+      <option value="">Category</option>
+      {% for cat in categories %}
+        <option value="{{ cat.slug }}" {% if selected_category == cat.slug %}selected{% endif %}>
+          {{ cat.name }}
+        </option>
+      {% endfor %}
+    </select>
+  </form>
+
+  <hr />
+
   {% for post in posts %}
   <div class="card">
     <div class="card-body">
@@ -20,7 +35,7 @@
         by {{ post.author.username }} | {{ post.created_at|date:"M d, Y" }}
         {% if post.category %}
           | Category: 
-          <a href="{% url 'category_posts' post.category.pk %}">
+          <a href="?category={{ post.category.slug }}">
             {{ post.category.name }}
           </a>
         {% endif %}
@@ -53,3 +68,4 @@
   {% endfor %}
 </div>
 {% endblock %}
+<script src="{% static 'js/post.js' %}"></script>

@@ -15,17 +15,19 @@
     <header class="site-header">
       <nav class="navbar">
         <ul class="nav-list">
+          {% if user.is_authenticated %}
+          <li class="welcome">Welcome, {{ user.username }}!</li>
+          {% endif %}
           <li><a href="{% url 'home' %}" class="nav-link">Homepage</a></li>
           <li>
             <a href="{% url 'about' %}" class="nav-link">About</a>
           </li>
           <li><a href="{% url 'contact' %}" class="nav-link">Contact Us</a></li>
           <li>
-            <a href="{% url 'App:post_list' %}" class="nav-link">Categories</a>
+            <a href="{% url 'App:post_list' %}" class="nav-link">Posts</a>
           </li>
 
           {% if user.is_authenticated %}
-          <li class="welcome">Welcome, {{ user.username }}!</li>
           <li>
             <a href="{% url 'Users:profile' %}" class="nav-link">Profile</a>
           </li>

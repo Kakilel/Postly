@@ -1,9 +1,3 @@
-/* =========================
-   Contact Page Styles
-   Professional Palette
-========================= */
-
-/* Color System */
 :root {
     --primary: #1e3a8a;     /* Deep Navy */
     --primary-dark: #0f172a;
@@ -14,7 +8,7 @@
     --text-muted: #64748b;
 }
 
-/* Hero Section */
+
 .contact-hero {
     background: linear-gradient(135deg, var(--primary), var(--primary-dark));
     color: #fff;
@@ -37,7 +31,7 @@
     color: #e2e8f0;
 }
 
-/* Main Layout */
+
 .contact-main {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -45,7 +39,7 @@
     margin: 3rem auto;
 }
 
-/* Form Section */
+
 .contact-form-section {
     background: var(--card-bg);
     padding: 2rem;
@@ -63,7 +57,7 @@
     color: var(--primary);
 }
 
-/* Form Fields */
+
 .form-group {
     margin-bottom: 1.2rem;
 }
@@ -94,7 +88,7 @@
     background: #fff;
 }
 
-/* Submit Button */
+
 .btn-submit {
     background: var(--primary);
     color: #fff;
@@ -112,7 +106,7 @@
     transform: translateY(-2px);
 }
 
-/* Sidebar Info */
+
 .contact-info {
     background: var(--card-bg);
     padding: 2rem;
@@ -130,7 +124,7 @@
     color: var(--text-muted);
 }
 
-/* Social Links */
+
 .contact-info .social-links {
     display: flex;
     gap: 1rem;
@@ -148,7 +142,7 @@
     transform: scale(1.15);
     filter: invert(40%) sepia(100%) saturate(600%) hue-rotate(180deg);
 }
-/* Social links container */
+
 .social-links {
     display: flex;
     justify-content: center;
@@ -156,7 +150,7 @@
     margin-top: 20px;
 }
 
-/* Icon styling */
+
 .social-links a {
     display: flex;
     align-items: center;
@@ -176,17 +170,17 @@
     transition: all 0.3s ease;
 }
 
-/* Hover effect */
+
 .social-links a:hover {
     transform: translateY(-3px);
-    background: #0077b6; /* professional blue shade */
+    background: #0077b6; 
 }
 
 .social-links a:hover img {
-    filter: none; /* restore original icon color */
+    filter: none; 
 }
 
-/* Dark mode compatibility (optional) */
+
 body.dark .social-links a {
     background: #222;
 }
@@ -196,7 +190,6 @@ body.dark .social-links a:hover {
 }
 
 
-/* Map */
 .map iframe {
     width: 100%;
     height: 250px;
@@ -204,7 +197,6 @@ body.dark .social-links a:hover {
     margin-top: 1rem;
 }
 
-/* Responsive */
 @media (max-width: 900px) {
     .contact-main {
         grid-template-columns: 1fr;
